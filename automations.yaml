@@ -1,0 +1,18 @@
+alias: Deye pv1 to pvoutput
+  description: ''
+  triggers:
+  - type: power
+    device_id: 0e087df51277901e44c6f8e482391503
+    entity_id: d1fb21d064d50e916b801d8bb81d2f4f
+    domain: sensor
+    trigger: device
+    above: 0
+  - trigger: time_pattern
+    minutes: /5
+  conditions: []
+  actions:
+  - action: rest_command.update_pvoutput
+    metadata: {}
+    data: {}
+    response_variable: pvo.log
+  mode: single
