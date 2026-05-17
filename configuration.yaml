@@ -4,7 +4,7 @@
     method: POST
     headers:
       X-Pvoutput-Apikey: !secret pvoutput_api_key
-      X-Pvoutput-SystemId: !secret pvoutput_system_id_3
+      X-Pvoutput-SystemId: !secret pvoutput_system_id
 
     payload: >
       {{
