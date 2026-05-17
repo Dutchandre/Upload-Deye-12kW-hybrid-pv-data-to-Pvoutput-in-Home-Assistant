@@ -1,0 +1,20 @@
+# rest_command:
+  update_pvoutput:
+    url: "https://pvoutput.org/service/r2/addstatus.jsp"
+    method: POST
+    headers:
+      X-Pvoutput-Apikey: !secret pvoutput_api_key
+      X-Pvoutput-SystemId: !secret pvoutput_system_id_3
+
+    payload: >
+      {{
+        "d=" ~ now().strftime('%Y%m%d') ~
+        "&t=" ~ now().strftime('%H:%M') | urlencode ~
+        "&v1=" ~ states('sensor.inverter_today_production') | float * 1000 | int ~
+        "&v2=" ~ states('sensor.inverter_pv_power') | float | int ~
+        "&v7=" ~ states('sensor.inverter_pv1_voltage') | float | int ~
+        "&v8=" ~ states('sensor.inverter_pv2_voltage') | float | int ~
+        "&v9=" ~ states('sensor.inverter_pv1_power') | float | int ~
+        "&v10=" ~ states('sensor.inverter_pv2_power') | float | int
+       }}
+    content_type: "application/x-www-form-urlencoded"
