@@ -1,0 +1,774 @@
+esphome:
+  name: esphome-web-09b678
+  friendly_name: ESPHome Web 09b678
+  min_version: 2026.4.0
+  name_add_mac_suffix: false
+
+#esp32:
+#  variant: esp32
+ # framework:
+  #  type: esp-idf
+
+# Enable logging
+#logger:
+
+# Enable Home Assistant API
+#api:
+
+# Allow Over-The-Air updates
+#ota:
+#- platform: esphome
+
+#wifi:
+ # ssid: !secret wifi_ssid
+  #password: !secret wifi_password
+
+
+  
+
+#esp32:
+ # variant: esp32s3
+  #framework:
+   # type: esp-idf
+
+# Enable logging
+#logger:
+
+# Enable Home Assistant API
+#api:
+ # encryption:
+  #  key: !secret api_encryption_key
+
+#ota:
+ # - platform: esphome
+  #  password: !secret ota_password
+
+#wifi:
+ # ssid: !secret wifi_ssid
+  #password: !secret wifi_password
+
+  # ==============================================================================
+#  CYD 2.8" HAMon - Home Assistant Monitor
+#  A customisable clock & sensor dashboard for the ESP32 Cheap Yellow Display
+#
+#  Author: element-software
+#  Date: 2026-02-13
+#  License: MIT
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy
+#  of this software and associated documentation files (the "Software"), to deal
+#  in the Software without restriction, including without limitation the rights
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#  copies of the Software, and to permit persons to whom the Software is
+#  furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in
+#  all copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+#  THE SOFTWARE.
+# ==============================================================================
+#
+#  SUBSTITUTIONS - Customise your dashboard by editing the values below.
+#  Passwords and keys should be stored in your secrets.yaml file.
+#
+# ==============================================================================
+substitutions:
+  # --- Device ---
+ # device_name: "hamon" # Use the device name you entered when setting up a new ESPHome device
+  #friendly_name: "HAMon" # Can be whatever you like
+
+  # --- Icon Glyphs ---
+  # List each unique icon ONCE here. If you use the same icon multiple times below,
+  # only include it once in this list to avoid "duplicate glyph" errors.
+  # Example: If r1c1_icon and r2c1_icon both use "\uea0b", only list "\uea0b" once.
+  icon_glyphs: "\uea0b\ue1ff\ue3e7\ueb58"
+
+  # --- Row 1, Column 1 ---
+  r1c1_entity: "sensor.inverter_internal_power"
+  r1c1_type: "sensor"
+  r1c1_label: "Power net"
+  r1c1_icon: "\uea0b"
+  r1c1_icon_color: "0xFFA500"
+  r1c1_format: '%.0fW'
+  r1c1_thresh_0: "12000"
+  r1c1_thresh_0_color: "0xFF0000"
+  r1c1_thresh_1: "0"
+  r1c1_thresh_1_color: "0xFFA500"
+  r1c1_thresh_2: "-12000"
+  r1c1_thresh_2_color: "0x32CD32"
+
+  # --- Row 1, Column 2 ---
+  r1c2_entity: "sensor.192168197_total_system_power"
+  r1c2_type: "sensor"
+  r1c2_label: "Power home"
+  r1c2_icon: "\uea0b"
+  r1c2_icon_color: "0xFFA500"
+  r1c2_format: '%.0fW'
+  r1c2_thresh_0: "5000"
+  r1c2_thresh_0_color: "0xFF0000"
+  r1c2_thresh_1: "3000"
+  r1c2_thresh_1_color: "0xFFA500"
+  r1c2_thresh_2: "-5000"
+  r1c2_thresh_2_color: "0x32CD32"
+
+  # --- Row 2, Column 1 ---
+  r2c1_entity: "sensor.pace_bms_bms1_soc"
+  r2c1_type: "sensor"
+  r2c1_label: "SOC 1"
+  r2c1_icon: "\uea0b"
+  r2c1_icon_color: "0xFFA500"
+  r2c1_format: '%.1f%%'
+  r2c1_thresh_0: "100"
+  r2c1_thresh_0_color: "0x00FF33"
+  r2c1_thresh_1: "50"
+  r2c1_thresh_1_color: "0xFFA500"
+  r2c1_thresh_2: "0"
+  r2c1_thresh_2_color: "0xCD5132"
+
+  # --- Row 2, Column 2 ---
+  r2c2_entity: "sensor.wh2650a_temperature_1"
+  r2c2_type: "sensor"
+  r2c2_label: "Woonkamer"
+  r2c2_icon: "\ue1ff"
+  r2c2_icon_color: "0xFFA500"
+  r2c2_format: '%.1f°C'
+  r2c2_thresh_0: "30"
+  r2c2_thresh_0_color: "0xFF0000"
+  r2c2_thresh_1: "25"
+  r2c2_thresh_1_color: "0xFFA500"
+  r2c2_thresh_2: "20"
+  r2c2_thresh_2_color: "0x32CD32"
+
+  # --- Row 3, Column 1 ---
+  r3c1_entity: "sensor.pace_bms_bms2_soc"
+  r3c1_type: "sensor"
+  r3c1_label: "SOC 2"
+  r3c1_icon: "\uea0b"
+  r3c1_icon_color: "0xFFA500"
+  r3c1_format: '%.1f%%'
+  r3c1_thresh_0: "100"
+  r3c1_thresh_0_color: "0x00FF1E"
+  r3c1_thresh_1: "50"
+  r3c1_thresh_1_color: "0xFFA500"
+  r3c1_thresh_2: "0"
+  r3c1_thresh_2_color: "0xCD3232"
+
+  # --- Row 3, Column 2 ---
+  r3c2_entity: "sensor.wh2650a_temperature_8"
+  r3c2_type: "sensor"
+  r3c2_label: "Tuin"
+  r3c2_icon: "\ue1ff"
+  r3c2_icon_color: "0xFFA500"
+  r3c2_format: '%.1f°C'
+  r3c2_thresh_0: "30"
+  r3c2_thresh_0_color: "0xFF0000"
+  r3c2_thresh_1: "20"
+  r3c2_thresh_1_color: "0xFFA500"
+  r3c2_thresh_2: "0"
+  r3c2_thresh_2_color: "0x3244CD"
+
+  # --- Row 4, Column 1 ---
+  r4c1_entity: "sensor.pace_bms_bms3_soc"
+  r4c1_type: "sensor"
+  r4c1_label: "SOCC 3"
+  r4c1_icon: "\uea0b"
+  r4c1_icon_color: "0x00BFFF"
+  r4c1_format: '%.1f%%'
+  r4c1_thresh_0: "100"
+  r4c1_thresh_0_color: "0x04FF00"
+  r4c1_thresh_1: "50"
+  r4c1_thresh_1_color: "0xFFA500"
+  r4c1_thresh_2: "0"
+  r4c1_thresh_2_color: "0xCD3C32"
+
+  # --- Row 4, Column 2 ---
+  r4c2_entity: "sensor.inverter_temperature"
+  r4c2_type: "sensor"
+  r4c2_label: "Deye"
+  r4c2_icon: "\ue1ff"
+  r4c2_icon_color: "0xFFA500"
+  r4c2_format: '%.1f°C'
+  r4c2_thresh_0: "60"
+  r4c2_thresh_0_color: "0xFF0000"
+  r4c2_thresh_1: "40"
+  r4c2_thresh_1_color: "0xFFA500"
+  r4c2_thresh_2: "30"
+  r4c2_thresh_2_color: "0x32CD32"
+
+# ==============================================================================
+#esphome:
+ # name: ${device_name}
+  #friendly_name: ${friendly_name}
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+
+# Replace with the API encryption key provided by your ESPHome instance
+api:
+  encryption:
+    key: !secret api_key
+
+# Replace with the OTA password provided by your ESPHome instance
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "${friendly_name} Fallback"
+    password: !secret ap_password
+
+captive_portal:
+
+output:
+  - platform: ledc
+    pin: GPIO21
+    id: backlight_pwm
+
+light:
+  - platform: monochromatic
+    output: backlight_pwm
+    name: Display Backlight
+    id: backlight
+    restore_mode: ALWAYS_ON
+    default_transition_length: 0.5s
+
+spi:
+  - id: tft
+    clk_pin: GPIO14
+    mosi_pin: GPIO13
+    miso_pin: GPIO12
+  - id: touch
+    clk_pin: GPIO25
+    mosi_pin: GPIO32
+    miso_pin: GPIO39
+
+display:
+  - platform: ili9xxx
+    id: my_display
+    model: ILI9341
+    spi_id: tft
+    cs_pin: GPIO15
+    dc_pin: GPIO2
+    auto_clear_enabled: false
+    invert_colors: false
+    color_order: RGB
+    dimensions:
+      width: 240
+      height: 320
+    transform:
+      swap_xy: true
+      mirror_y: true
+      mirror_x: true
+
+touchscreen:
+  platform: xpt2046
+  id: my_touchscreen
+  spi_id: touch
+  cs_pin: GPIO33
+  calibration:
+    x_min: 220
+    x_max: 3756
+    y_min: 394
+    y_max: 3749
+  transform:
+    swap_xy: true
+    mirror_x: true
+    mirror_y: true
+
+# --- FONTS ---
+font:
+  - file: "gfonts://Roboto"
+    id: clock_font
+    size: 48
+    glyphs: '0123456789: '
+  - file: "gfonts://Roboto"
+    id: date_font
+    size: 20
+    glyphs: "0123456789/- abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  - file: "gfonts://Material Icons"
+    id: icon_font
+    size: 28
+    glyphs: "${icon_glyphs}"
+  - file: "gfonts://Roboto"
+    id: state_font
+    size: 18
+    glyphs: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz .°%-/³µμÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ'
+  - file: "gfonts://Roboto"
+    id: label_font
+    size: 11
+    glyphs: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz .°%-/³µμÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ"
+
+# --- TIME ---
+
+# --- DISPLAY PAGE CONFIG ---
+lvgl:
+  displays:
+    - my_display
+  touchscreens:
+    - my_touchscreen
+  pages:
+    - id: main_page
+      bg_color: 0x000000
+      widgets:
+        # ====== ROW 1 ======
+        - button:
+            x: 2
+            y: 6
+            id: button_r1c1
+            width: 117
+            height: 68
+            bg_opa: TRANSP
+            border_width: 0
+            shadow_width: 0
+            radius: 0
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  id: icon_r1c1
+                  text: "${r1c1_icon}"
+                  text_font: icon_font
+                  text_color: ${r1c1_icon_color}
+                  align: LEFT_MID
+                  x: 0
+                  clickable: true
+              - label:
+                  id: lbl_r1c1
+                  text: "${r1c1_label}"
+                  text_font: label_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: -10
+                  clickable: false
+              - label:
+                  id: val_r1c1
+                  text: "--"
+                  text_font: state_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: 10
+                  clickable: false
+
+        - button:
+            x: 121
+            y: 6
+            id: button_r1c2
+            width: 117
+            height: 68
+            bg_opa: TRANSP
+            border_width: 0
+            shadow_width: 0
+            radius: 0
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  id: icon_r1c2
+                  text: "${r1c2_icon}"
+                  text_font: icon_font
+                  text_color: ${r1c2_icon_color}
+                  align: LEFT_MID
+                  x: 0
+                  clickable: true
+              - label:
+                  id: lbl_r1c2
+                  text: "${r1c2_label}"
+                  text_font: label_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: -10
+                  clickable: false
+              - label:
+                  id: val_r1c2
+                  text: "--"
+                  text_font: state_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: 10
+                  clickable: false
+
+        # ====== ROW 2 ======
+        - button:
+            x: 2
+            y: 84
+            id: button_r2c1
+            width: 117
+            height: 68
+            bg_opa: TRANSP
+            border_width: 0
+            shadow_width: 0
+            radius: 0
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  id: icon_r2c1
+                  text: "${r2c1_icon}"
+                  text_font: icon_font
+                  text_color: ${r2c1_icon_color}
+                  align: LEFT_MID
+                  x: 0
+                  clickable: false
+              - label:
+                  id: lbl_r2c1
+                  text: "${r2c1_label}"
+                  text_font: label_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: -10
+                  clickable: false
+              - label:
+                  id: val_r2c1
+                  text: "--"
+                  text_font: state_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: 10
+                  clickable: false
+
+        - button:
+            x: 121
+            y: 84
+            id: button_r2c2
+            width: 117
+            height: 68
+            bg_opa: TRANSP
+            border_width: 0
+            shadow_width: 0
+            radius: 0
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  id: icon_r2c2
+                  text: "${r2c2_icon}"
+                  text_font: icon_font
+                  text_color: ${r2c2_icon_color}
+                  align: LEFT_MID
+                  x: 0
+                  clickable: false
+              - label:
+                  id: lbl_r2c2
+                  text: "${r2c2_label}"
+                  text_font: label_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: -10
+                  clickable: false
+              - label:
+                  id: val_r2c2
+                  text: "--"
+                  text_font: state_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: 10
+                  clickable: false
+
+        # ====== ROW 3 ======
+        - button:
+            x: 2
+            y: 162
+            id: button_r3c1
+            width: 117
+            height: 68
+            bg_opa: TRANSP
+            border_width: 0
+            shadow_width: 0
+            radius: 0
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  id: icon_r3c1
+                  text: "${r3c1_icon}"
+                  text_font: icon_font
+                  text_color: ${r3c1_icon_color}
+                  align: LEFT_MID
+                  x: 0
+                  clickable: false
+              - label:
+                  id: lbl_r3c1
+                  text: "${r3c1_label}"
+                  text_font: label_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: -10
+                  clickable: false
+              - label:
+                  id: val_r3c1
+                  text: "--"
+                  text_font: state_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: 10
+                  clickable: false
+
+        - button:
+            x: 121
+            y: 162
+            id: button_r3c2
+            width: 117
+            height: 68
+            bg_opa: TRANSP
+            border_width: 0
+            shadow_width: 0
+            radius: 0
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  id: icon_r3c2
+                  text: "${r3c2_icon}"
+                  text_font: icon_font
+                  text_color: ${r3c2_icon_color}
+                  align: LEFT_MID
+                  x: 0
+                  clickable: false
+              - label:
+                  id: lbl_r3c2
+                  text: "${r3c2_label}"
+                  text_font: label_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: -10
+                  clickable: false
+              - label:
+                  id: val_r3c2
+                  text: "--"
+                  text_font: state_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: 10
+                  clickable: false
+
+        # ====== ROW 4 ======
+        - button:
+            x: 2
+            y: 240
+            id: button_r4c1
+            width: 117
+            height: 68
+            bg_opa: TRANSP
+            border_width: 0
+            shadow_width: 0
+            radius: 0
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  id: icon_r4c1
+                  text: "${r4c1_icon}"
+                  text_font: icon_font
+                  text_color: ${r4c1_icon_color}
+                  align: LEFT_MID
+                  x: 0
+                  clickable: false
+              - label:
+                  id: lbl_r4c1
+                  text: "${r4c1_label}"
+                  text_font: label_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: -10
+                  clickable: false
+              - label:
+                  id: val_r4c1
+                  text: "--"
+                  text_font: state_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: 10
+                  clickable: false
+
+        - button:
+            x: 121
+            y: 240
+            id: button_r4c2
+            width: 117
+            height: 68
+            bg_opa: TRANSP
+            border_width: 0
+            shadow_width: 0
+            radius: 0
+            scrollbar_mode: "OFF"
+            widgets:
+              - label:
+                  id: icon_r4c2
+                  text: "${r4c2_icon}"
+                  text_font: icon_font
+                  text_color: ${r4c2_icon_color}
+                  align: LEFT_MID
+                  x: 0
+                  clickable: false
+              - label:
+                  id: lbl_r4c2
+                  text: "${r4c2_label}"
+                  text_font: label_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: -10
+                  clickable: false
+              - label:
+                  id: val_r4c2
+                  text: "--"
+                  text_font: state_font
+                  text_color: 0xFFFFFF
+                  align: LEFT_MID
+                  x: 32
+                  y: 10
+                  clickable: false
+# --- BINARY SENSOR CONFIG ---
+binary_sensor:
+
+
+ 
+# --- NUMERIC SENSOR CONFIG ---
+sensor:
+  - platform: homeassistant
+    id: ha_r1c1
+    entity_id: ${r1c1_entity}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: val_r1c1
+            text: !lambda |-
+              return str_sprintf("${r1c1_format}", x);
+        - lvgl.label.update:
+            id: icon_r1c1
+            text_color: !lambda |-
+              if (x > ${r1c1_thresh_0}) return lv_color_hex(${r1c1_thresh_0_color});
+              if (x > ${r1c1_thresh_1}) return lv_color_hex(${r1c1_thresh_1_color});
+              return lv_color_hex(${r1c1_thresh_2_color});
+
+  - platform: homeassistant
+    id: ha_r1c2
+    entity_id: ${r1c2_entity}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: val_r1c2
+            text: !lambda |-
+              return str_sprintf("${r1c2_format}", x);
+        - lvgl.label.update:
+            id: icon_r1c2
+            text_color: !lambda |-
+              if (x > ${r1c2_thresh_0}) return lv_color_hex(${r1c2_thresh_0_color});
+              if (x > ${r1c2_thresh_1}) return lv_color_hex(${r1c2_thresh_1_color});
+              return lv_color_hex(${r1c2_thresh_2_color});
+
+  - platform: homeassistant
+    id: ha_r2c1
+    entity_id: ${r2c1_entity}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: val_r2c1
+            text: !lambda |-
+              return str_sprintf("${r2c1_format}", x);
+        - lvgl.label.update:
+            id: icon_r2c1
+            text_color: !lambda |-
+              if (x > ${r2c1_thresh_0}) return lv_color_hex(${r2c1_thresh_0_color});
+              if (x > ${r2c1_thresh_1}) return lv_color_hex(${r2c1_thresh_1_color});
+              return lv_color_hex(${r2c1_thresh_2_color});
+        
+  - platform: homeassistant
+    id: ha_r2c2
+    entity_id: ${r2c2_entity}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: val_r2c2
+            text: !lambda |-
+              return str_sprintf("${r2c2_format}", x);
+        - lvgl.label.update:
+            id: icon_r2c2
+            text_color: !lambda |-
+              if (x > ${r2c2_thresh_0}) return lv_color_hex(${r2c2_thresh_0_color});
+              if (x > ${r2c2_thresh_1}) return lv_color_hex(${r2c2_thresh_1_color});
+              return lv_color_hex(${r2c2_thresh_2_color});
+
+  - platform: homeassistant
+    id: ha_r3c1
+    entity_id: ${r3c1_entity}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: val_r3c1
+            text: !lambda |-
+              return str_sprintf("${r3c1_format}", x);
+        - lvgl.label.update:
+            id: icon_r3c1
+            text_color: !lambda |-
+              if (x > ${r3c1_thresh_0}) return lv_color_hex(${r3c1_thresh_0_color});
+              if (x > ${r3c1_thresh_1}) return lv_color_hex(${r3c1_thresh_1_color});
+              return lv_color_hex(${r3c1_thresh_2_color});
+
+  - platform: homeassistant
+    id: ha_r3c2
+    entity_id: ${r3c2_entity}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: val_r3c2
+            text: !lambda |-
+              return str_sprintf("${r3c2_format}", x);
+        - lvgl.label.update:
+            id: icon_r3c2
+            text_color: !lambda |-
+              if (x > ${r3c2_thresh_0}) return lv_color_hex(${r3c2_thresh_0_color});
+              if (x > ${r3c2_thresh_1}) return lv_color_hex(${r3c2_thresh_1_color});
+              return lv_color_hex(${r3c2_thresh_2_color});
+
+  - platform: homeassistant
+    id: ha_r4c1
+    entity_id: ${r4c1_entity}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: val_r4c1
+            text: !lambda |-
+              return str_sprintf("${r4c1_format}", x);
+        - lvgl.label.update:
+            id: icon_r4c1
+            text_color: !lambda |-
+              if (x > ${r4c1_thresh_0}) return lv_color_hex(${r4c1_thresh_0_color});
+              if (x > ${r4c1_thresh_1}) return lv_color_hex(${r4c1_thresh_1_color});
+              return lv_color_hex(${r4c1_thresh_2_color});
+
+  - platform: homeassistant
+    id: ha_r4c2
+    entity_id: ${r4c2_entity}
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: val_r4c2
+            text: !lambda |-
+              return str_sprintf("${r4c2_format}", x);
+        - lvgl.label.update:
+            id: icon_r4c2
+            text_color: !lambda |-
+              if (x > ${r4c2_thresh_0}) return lv_color_hex(${r4c2_thresh_0_color});
+              if (x > ${r4c2_thresh_1}) return lv_color_hex(${r4c2_thresh_1_color});
+              return lv_color_hex(${r4c2_thresh_2_color});
