@@ -9,3 +9,14 @@ The payload items represent the fields in Pvoutput that receive data of each pv 
 Look for similar sensor naming in your Solarman integration, it may differ a bit from mine.
 
 An automation in HA triggers the rest command each 5 minutes, if you like you can add sun rise and sun down items.
+
+To read values of a Pace BMS in Home Assistant I've made an EspHome device using ESP32 with ethernet.
+It has no usb so the intial setup has to be done using an usb-rs232 flash device, after that OTA is available.
+Pace BMS WT32-TH01 wiring to RS485 module:
+
+<img width="803" height="282" alt="ESP32 WT32-ETH01_RS485_schema" src="https://github.com/user-attachments/assets/6b55af91-17ce-4749-ba48-d72fb1a8917c" />
+
+
+Another EspHome gadget I've made is a CYD (cheap yellow display) that shows BMS data and other data in Home Assistant.
+
+<img width="800" height="1000" alt="IMG_20260628_150631_MP-" src="https://github.com/user-attachments/assets/5ff1bb5c-8b9d-43ca-a91c-6e7e11cee4f4" />
